@@ -5,7 +5,7 @@ import { Link, Navigate, Outlet } from "react-router-dom";
 
 export default function FormLayout() {
   const { loading, isAuthenticated } = useAuth();
-  
+
   if (loading) return <FullScreenSpinner />;
 
   if (isAuthenticated) return <Navigate to="/dashboard" />;
@@ -20,7 +20,7 @@ export default function FormLayout() {
         <section className="flex bg-background flex-col justify-center gap-3 p-4 py-2 text-lg xl:w-2/3 md:px-10 w-full max-h-min">
           <Link to="/" className="flex items-center max-w-4xl">
             <h1 className="font-sans-accent text-7xl text-foreground">
-              Template
+              ComunidadActiva
             </h1>
           </Link>
           <Outlet />

@@ -7,8 +7,8 @@ export default function Hero() {
       <div className="grid grid-cols-1 grid-rows-[300_px_1fr] lg:grid-cols-2 lg:grid-rows-1 mx-6 md:mx-[10rem] min-h-[90vh] pt-8 md:pt-0">
         <div className="flex flex-col justify-center items-center md:items-start">
           <hgroup className="flex flex-col text-center lg:text-start">
-            <h1 className="text-[90px] leading-[1] md:text-[100px] text-bold font-sans-accent mb-5">
-              Hero
+            <h1 className="text-[70px] leading-[1] md:text-[80px] text-bold font-sans-accent mb-5">
+              Ayuda a construir una ciudad mejor
             </h1>
             <p className="text-xl font-sans font-thin lg:me-20">
               Descripción de Hero. Lorem ipsum dolor sit amet consectetur
@@ -21,15 +21,9 @@ export default function Hero() {
           <div className="flex gap-2 mt-4">
             <Button
               variant="default"
-              className="px-4 py-5 mt-4 rounded-md text-xl"
+              className="px-4 py-5 mt-4 rounded-md text-2xl"
             >
-              Call to Action
-            </Button>
-            <Button
-              variant="outline"
-              className="px-4 py-5 mt-4 rounded-md text-xl"
-            >
-              Outline action
+              Registra una denuncia
             </Button>
           </div>
         </div>
