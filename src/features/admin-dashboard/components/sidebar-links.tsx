@@ -1,10 +1,16 @@
 import { cn } from "@/lib/utils";
+import { DashboardIcon } from "@radix-ui/react-icons";
 import { Map, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import SectionLink from "./section-link";
 import SidebarItem from "./sidebar-item";
 
 const LINKS = [
+  {
+    section: "Dashboard",
+    icon: <DashboardIcon className="h-6 w-6" />,
+    link: "/dashboard/graphics",
+  },
   {
     section: "Mapa",
     icon: <Map className="h-6 w-6" />,
