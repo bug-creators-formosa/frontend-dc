@@ -1,4 +1,3 @@
-import heroImage from "@/assets/img/hero.jpg";
 import { Button } from "@/components/shadcn/ui/button";
 
 export default function Hero() {
@@ -37,7 +36,7 @@ function HeroImage() {
   return (
     <div className="group flex justify-center items-center relative *:duration-200 *:transition-transform">
       <img
-        src={heroImage}
+        src="/feature-posts.svg"
         alt="Hero"
         className="object-contain w-full h-full"
       />
