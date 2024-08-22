@@ -28,47 +28,45 @@ export default function CardAreaChart(props: CardAreaChartProps) {
     },
   } satisfies ChartConfig;
   return (
-    <div className="m-4">
-      <Card>
-        <CardHeader>
+    <Card className="m-4">
+      <CardHeader>
         <CardTitle>{props.title ?? props.areaLabel}</CardTitle>
         <CardDescription>{props.description}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-            <AreaChart
-              accessibilityLayer
-              data={props.data}
-              margin={{
-                left: 12,
-                right: 12,
-                top: 12,
-              }}
-            >
-              <CartesianGrid vertical={false} />
-              <XAxis
-                dataKey={'category'}
-                tickLine={false}
-                axisLine={false}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="dot" />}
-              />
-              <Area
-                dataKey={"value"}
-                type="natural"
-                fill={`var(--color-value)`}
-                fillOpacity={0.4}
-                stroke={`var(--color-value)`}
-                stackId="a"
-              />
-            </AreaChart>
-          </ChartContainer>
-        </CardContent>
-      </Card>
-    </div>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+          <AreaChart
+            accessibilityLayer
+            data={props.data}
+            margin={{
+              left: 12,
+              right: 12,
+              top: 12,
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey={"category"}
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dot" />}
+            />
+            <Area
+              dataKey={"value"}
+              type="natural"
+              fill={`var(--color-value)`}
+              fillOpacity={0.4}
+              stroke={`var(--color-value)`}
+              stackId="a"
+            />
+          </AreaChart>
+        </ChartContainer>
+      </CardContent>
+    </Card>
   );
 }
