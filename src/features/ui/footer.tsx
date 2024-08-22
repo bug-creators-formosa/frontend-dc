@@ -8,12 +8,12 @@ const FOOTER_LINKS = [
   {
     icon: <InstagramIcon className="w-6 fill-foreground" />,
     to: "https://www.instagram.com/example/",
-    text: "PlaSeC",
+    text: "ComunidadActiva",
   },
   {
     icon: <FacebookIcon className="w-6 fill-foreground" />,
     to: "https://www.facebook.com/example/",
-    text: "PlaSeC",
+    text: "ComunidadActiva",
   },
 ];
 
@@ -21,9 +21,9 @@ export default function Footer() {
   return (
     <footer className="bg-background text-foreground flex flex-col gap-4 mt-24">
       <div className="flex justify-between flex-wrap mx-auto content-center w-full lg:max-w-[70%] gap-2 md:gap-12">
-        <div className="min-h-[30vh]">
+        <div className="min-h-[30vh] w-full flex flex-col justify-center">
           <Link
-            className="flex gap-2 text-[5rem] items-center flex-1 justify-center lg:justify-start p-2 md:p-5"
+            className="flex gap-2 text-[3rem] items-center flex-1 justify-center lg:justify-start p-2 md:p-5"
             to="/"
           >
             <WhiteLogo className="w-[80px] h-[80px] fill-background stroke-foreground" />
@@ -31,7 +31,7 @@ export default function Footer() {
               ComunidadActiva
             </span>
           </Link>
-          <div className="px-5 flex flex-col gap-2 items-start mt-4 md:mt-8 ">
+          <div className="px-5 flex flex-col gap-2 items-center md:items-start mt-4 md:mt-8 ">
             <Link to="/sign-in">
               <Button className="p-6 text-2xl">Registra una denuncia</Button>
             </Link>
