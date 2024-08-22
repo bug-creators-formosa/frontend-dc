@@ -95,8 +95,8 @@ function LoginLinks() {
         </DropdownMenu>
       )}
       {!isAuthenticated && !loading && (
-        <div className="flex gap-2 pb-3 ">
-          <NavigationMenuItem key={"/sign-up"} className="">
+        <div className="flex flex-col md:flex-row gap-2 pb-3">
+          <NavigationMenuItem key={"/sign-up"}>
             <NavLink to={"/auth/sign-up"}>
               <Button className="w-full md:w-max text-lg" variant={"secondary"}>
                 Registrarse

@@ -20,8 +20,8 @@ const FOOTER_LINKS = [
 export default function Footer() {
   return (
     <footer className="bg-background text-foreground flex flex-col gap-4 mt-24">
-      <div className="flex justify-between flex-wrap mx-auto content-center w-full lg:max-w-[70%] gap-2 md:gap-12">
-        <div className="min-h-[30vh] w-full flex flex-col justify-center">
+      <div className="flex justify-between mx-auto content-center w-full lg:max-w-[70%] gap-2 md:gap-12">
+        <div className="min-h-[30vh] w-full md:max-w-full flex flex-col justify-center">
           <Link
             className="flex gap-2 text-[3rem] items-center flex-1 justify-center lg:justify-start p-2 md:p-5"
             to="/"
