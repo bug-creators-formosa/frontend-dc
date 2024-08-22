@@ -1,6 +1,5 @@
-
-import { Label, Pie, PieChart, Sector } from "recharts"
-import { PieSectorDataItem } from "recharts/types/polar/Pie"
+import { Label, Pie, PieChart, Sector } from "recharts";
+import { PieSectorDataItem } from "recharts/types/polar/Pie";
 
 import {
   Card,
@@ -8,111 +7,98 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/shadcn/ui/card"
+} from "@/components/shadcn/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartStyle,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/shadcn/ui/chart"
+} from "@/components/shadcn/ui/chart";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/shadcn/ui/select"
-import { useMemo, useState } from "react"
+} from "@/components/shadcn/ui/select";
+import { useMemo, useState } from "react";
 
+type CardDonutChartProps = {
+  data: { category: string; value: number; fill: string }[];
+  donutLabel: string;
+  title?: string;
+  description?: string;
+};
 
-const desktopData = [
-  { month: "january", desktop: 186, fill: "var(--color-january)" },
-  { month: "february", desktop: 305, fill: "var(--color-february)" },
-  { month: "march", desktop: 237, fill: "var(--color-march)" },
-  { month: "april", desktop: 173, fill: "var(--color-april)" },
-  { month: "may", desktop: 209, fill: "var(--color-may)" },
-]
+export function CardDonutChart(props: CardDonutChartProps) {
+  const id = "pie-interactive";
+  const [activeCategory, setActiveCategory] = useState(props.data[0].category);
 
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  desktop: {
-    label: "Desktop",
-  },
-  january: {
-    label: "January",
-    color: "hsl(var(--chart-1))",
-  },
-  february: {
-    label: "February",
-    color: "hsl(var(--chart-2))",
-  },
-  march: {
-    label: "March",
-    color: "hsl(var(--chart-3))",
-  },
-  april: {
-    label: "April",
-    color: "hsl(var(--chart-4))",
-  },
-  may: {
-    label: "May",
-    color: "hsl(var(--chart-5))",
-  },
-} satisfies ChartConfig
-
-export function CardDonutChart() {
-  const id = "pie-interactive"
-  const [activeMonth, setActiveMonth] = useState(desktopData[0].month)
+  const chartConfig = useMemo(
+    () =>
+      props.data.reduce<ChartConfig>((acc, item) => {
+        acc[item.category] = {
+          label: item.category,
+          color: item.fill,
+        };
+        return acc;
+      }, {}),
+    [props.data]
+  ) as ChartConfig;
 
   const activeIndex = useMemo(
-    () => desktopData.findIndex((item) => item.month === activeMonth),
-    [activeMonth]
-  )
-  const months = useMemo(() => desktopData.map((item) => item.month), [])
+    () => props.data.findIndex((item) => item.category === activeCategory),
+    [activeCategory]
+  );
+  const categories = useMemo(
+    () =>
+      props.data.map((item) => {
+        return { category: item.category, value: item.value, fill: item.fill };
+      }),
+    []
+  );
 
   return (
-    <Card data-chart={id} className="flex flex-col">
+    <Card data-chart={id} className="flex flex-col m-4">
       <ChartStyle id={id} config={chartConfig} />
       <CardHeader className="flex-row items-start space-y-0 pb-0">
         <div className="grid gap-1">
-          <CardTitle>Pie Chart - Interactive</CardTitle>
-          <CardDescription>January - June 2024</CardDescription>
+          <CardTitle>{props.title ?? props.donutLabel}</CardTitle>
+          <CardDescription>{props.description}</CardDescription>
         </div>
-        <Select value={activeMonth} onValueChange={setActiveMonth}>
+        <Select value={activeCategory} onValueChange={setActiveCategory}>
           <SelectTrigger
-            className="ml-auto h-7 w-[130px] rounded-lg pl-2.5"
-            aria-label="Select a value"
+            className="ml-auto h-7 w-auto rounded-lg pl-2.5"
+            aria-label="Seleccionar un valor"
           >
-            <SelectValue placeholder="Select month" />
+            <SelectValue placeholder="Seleccionar" />
           </SelectTrigger>
           <SelectContent align="end" className="rounded-xl">
-            {months.map((key) => {
-              const config = chartConfig[key as keyof typeof chartConfig]
+            {categories.map(({ category, fill }) => {
+              const config = chartConfig[category as keyof typeof chartConfig];
 
               if (!config) {
-                return null
+                return null;
               }
 
               return (
                 <SelectItem
-                  key={key}
-                  value={key}
+                  key={category}
+                  value={category}
                   className="rounded-lg [&_span]:flex"
                 >
                   <div className="flex items-center gap-2 text-xs">
                     <span
                       className="flex h-3 w-3 shrink-0 rounded-sm"
                       style={{
-                        backgroundColor: `var(--color-${key})`,
+                        backgroundColor: `${fill}`,
                       }}
                     />
                     {config?.label}
                   </div>
                 </SelectItem>
-              )
+              );
             })}
           </SelectContent>
         </Select>
@@ -129,9 +115,9 @@ export function CardDonutChart() {
               content={<ChartTooltipContent hideLabel />}
             />
             <Pie
-              data={desktopData}
-              dataKey="desktop"
-              nameKey="month"
+              data={props.data}
+              dataKey="value"
+              nameKey="category"
               innerRadius={60}
               strokeWidth={5}
               activeIndex={activeIndex}
@@ -164,17 +150,17 @@ export function CardDonutChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {desktopData[activeIndex].desktop.toLocaleString()}
+                          {props.data[activeIndex].value.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          {props.donutLabel}
                         </tspan>
                       </text>
-                    )
+                    );
                   }
                 }}
               />
@@ -183,5 +169,5 @@ export function CardDonutChart() {
         </ChartContainer>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -1,5 +1,6 @@
 import CardAreaChart from "@/features/admin-dashboard/components/charts/card-area-chart";
 import CardBarChart from "@/features/admin-dashboard/components/charts/card-bar-chart";
+import { CardDonutChart } from "@/features/admin-dashboard/components/charts/card-donut-chart";
 import CardPieChart from "@/features/admin-dashboard/components/charts/card-pie-chart";
 
 const USERS_CREATED_BY_MONTH = [
@@ -60,6 +61,7 @@ export default function DashboardIndex() {
         description="Creados por mes"
       />
       <CardPieChart data={REPORTS_BY_TYPE} pieLabel="Denuncias" />
+      <CardDonutChart data={REPORTS_BY_TYPE} donutLabel="Denuncias" />
     </div>
   );
 }
