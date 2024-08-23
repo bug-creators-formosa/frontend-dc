@@ -16,11 +16,11 @@ type GetReportsResponse = {
     report_id: string,
     image_url?: string,
     state_change_at: string
-}[]
+}
 
 export async function getReportsByUser() {
     try {
-        const response = await api.get<GetReportsResponse>(
+        const response = await api.get<GetReportsResponse[]>(
             `/users/my-reports`
         );
         return response.data.map(report => {
@@ -33,6 +33,28 @@ export async function getReportsByUser() {
                 state_change_at: new Date(report.state_change_at)
             }
         });
+    } catch (err) {
+        console.error("getReports error: ", err);
+        throw err;
+    }
+}
+
+type GetReportParams = { report_id: string };
+
+export async function getOneReport(params: GetReportParams) {
+    try {
+        const response = await api.get<GetReportsResponse>(
+            `/reports/${params.report_id}`
+        );
+        const report = response.data;
+        return {
+            ...report,
+            // TODO: Este es una solución temporal al 
+            // hecho de que hay reportes sin imagen
+            // pero con una URL no nula
+            image_url: report.image_url?.includes("undefined") ? null : report.image_url,
+            state_change_at: new Date(report.state_change_at)
+        }
     } catch (err) {
         console.error("getReports error: ", err);
         throw err;

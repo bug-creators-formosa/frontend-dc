@@ -98,7 +98,11 @@ export default function ReportsPage() {
                   <TableCell>{report.address}</TableCell>
                   <TableCell className="flex justify-end items-center gap-2 h-full">
                     <Button variant="default">Ver</Button>
-                    <Button variant="outline">Editar</Button>
+                    <Button variant="outline">
+                      <Link to={`/dashboard/reports/${report.report_id}/edit`}>
+                        Editar
+                      </Link>
+                    </Button>
                   </TableCell>
                 </TableRow>
               );

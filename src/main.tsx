@@ -22,6 +22,7 @@ import FormLayout from "./pages/auth/form-layout";
 import ConstructionPage from "./pages/construction";
 import NotFoundPage from "./pages/not_found";
 import AddReport from "./pages/user-dashboard/add-report";
+import EditReport from "./pages/user-dashboard/edit-report";
 import ReportsPage from "./pages/user-dashboard/reports-page";
 
 const router = createBrowserRouter([
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/graphics", element: <DashboardIndex />, index: true },
       { path: "/dashboard/reports", element: <ReportsPage /> },
       { path: "/dashboard/reports/add", element: <AddReport /> },
+      { path: "/dashboard/reports/:report_id/edit", element: <EditReport /> },
       { path: "/dashboard/users", element: <UserListPage /> },
       { path: "/dashboard/users/:userId", element: <UserDetailPage /> },
       { path: "/dashboard/map", element: <MapPage /> },
