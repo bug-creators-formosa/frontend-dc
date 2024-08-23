@@ -20,6 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn/ui/select";
+import { Textarea } from "@/components/shadcn/ui/textarea";
 import { FileInput } from "@/features/reports/componets/file-input";
 import { getReportTypes } from "@/features/reports/services/report-types";
 import {
@@ -30,6 +31,7 @@ import FullScreenSpinner from "@/features/ui/fullscreen-spinner";
 import { resolveUrl } from "@/lib/utils";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { formSchema } from "../schema/report.schema";
 
 type ReportFormProps = {
@@ -60,6 +62,7 @@ export function ReportForm(props: ReportFormProps) {
       report_type_id: props.report?.type.report_type_id,
     },
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!props.report) return;
@@ -82,6 +85,7 @@ export function ReportForm(props: ReportFormProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     await mutateAsync(values);
+    navigate("/dashboard/reports");
   }
 
   return (
@@ -119,8 +123,8 @@ export function ReportForm(props: ReportFormProps) {
               <FormItem>
                 <FormLabel>Descripción</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="La descripción de lo que has visto"
+                  <Textarea
+                    placeholder="Una descripción del problema"
                     {...field}
                   />
                 </FormControl>
