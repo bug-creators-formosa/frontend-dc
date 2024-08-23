@@ -26,9 +26,6 @@ export async function getReportsByUser() {
         return response.data.map(report => {
             return {
                 ...report,
-                // TODO: Este es una solución temporal al 
-                // hecho de que hay reportes sin imagen
-                // pero con una URL no nula
                 image_url: report.image_url?.includes("undefined") ? null : report.image_url,
                 state_change_at: new Date(report.state_change_at)
             }
@@ -47,10 +44,6 @@ export async function getReports() {
         return response.data.map(report => {
             return {
                 ...report,
-                // TODO: Este es una solución temporal al 
-                // hecho de que hay reportes sin imagen
-                // pero con una URL no nula
-                image_url: report.image_url?.includes("undefined") ? null : report.image_url,
                 state_change_at: new Date(report.state_change_at)
             }
         });
@@ -70,10 +63,6 @@ export async function getOneReport(params: GetReportParams) {
         const report = response.data;
         return {
             ...report,
-            // TODO: Este es una solución temporal al 
-            // hecho de que hay reportes sin imagen
-            // pero con una URL no nula
-            image_url: report.image_url?.includes("undefined") ? null : report.image_url,
             state_change_at: new Date(report.state_change_at)
         }
     } catch (err) {
@@ -119,5 +108,17 @@ export async function deleteReport(params: { report_id: string }) {
         console.error("deleteReports error: ", err);
         throw err;
     }
+}
 
+
+export async function changeReportState(params: { report_id: string, state: ReportState }) {
+    try {
+        const response = await api.patch(
+            `/reports/${params.report_id}/${params.state}`,
+        );
+        return response.data;
+    } catch (err) {
+        console.error("changeReportState error: ", err);
+        throw err;
+    }
 }

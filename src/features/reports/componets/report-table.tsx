@@ -74,7 +74,10 @@ export default function ReportTable(props: ReportPageProps) {
                     {report.description.slice(0, 100)}
                   </TableCell>
                   <TableCell>
-                    <ReportStateBadge state={report.state} />
+                    <ReportStateBadge
+                      report_id={report.report_id}
+                      state={report.state}
+                    />
                   </TableCell>
                   <TableCell>{report.type.name}</TableCell>
                   <TableCell>

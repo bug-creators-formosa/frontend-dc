@@ -43,7 +43,12 @@ export default function ReportDetailPage() {
       <div className="grid p-2 gap-3 bg-white">
         <div className="flex flex-row gap-2">
           {report?.type && <Badge>{report.type.name}</Badge>}
-          {report?.state && <ReportStateBadge state={report?.state} />}
+          {report?.state && (
+            <ReportStateBadge
+              report_id={report.report_id}
+              state={report?.state}
+            />
+          )}
         </div>
         <div className="my-2 border-1">
           <h2 className="font-sans-accent text-2xl mb-6">Título</h2>
@@ -54,13 +59,15 @@ export default function ReportDetailPage() {
           <p>{report?.description}</p>
         </div>
 
-        <div>
-          <h2 className="font-sans-accent text-2xl mb-6">Imagen adjunta</h2>
-          <img
-            src={resolveUrl(report?.image_url ?? "") ?? ""}
-            className="max-h-80"
-          />
-        </div>
+        {report?.image_url && (
+          <div>
+            <h2 className="font-sans-accent text-2xl mb-6">Imagen adjunta</h2>
+            <img
+              src={resolveUrl(report?.image_url ?? "") ?? ""}
+              className="max-h-80"
+            />
+          </div>
+        )}
         <div>
           <h2 className="font-sans-accent text-2xl mb-6">Dirección</h2>
           <p>{report?.address}</p>
