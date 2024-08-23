@@ -13,7 +13,7 @@ export default function DashboardLayout() {
       <div className="h-full">
         <Sidebar />
       </div>
-      <div className="w-full overflow-auto">
+      <div className="w-full overflow-auto mt-8 md:mt-0">
         <Outlet />
       </div>
     </div>

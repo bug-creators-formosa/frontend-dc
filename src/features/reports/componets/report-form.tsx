@@ -21,6 +21,7 @@ import {
   SelectValue,
 } from "@/components/shadcn/ui/select";
 import { Textarea } from "@/components/shadcn/ui/textarea";
+import useAuth from "@/features/auth/hooks/use-auth";
 import { FileInput } from "@/features/reports/componets/file-input";
 import { getReportTypes } from "@/features/reports/services/report-types";
 import {
@@ -63,6 +64,7 @@ export function ReportForm(props: ReportFormProps) {
     },
   });
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
 
   useEffect(() => {
     if (!props.report) return;
@@ -85,7 +87,7 @@ export function ReportForm(props: ReportFormProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     await mutateAsync(values);
-    navigate("/dashboard/reports");
+    navigate(`/dashboard/reports/${isAdmin ? "admin" : "user"}`);
   }
 
   return (
@@ -193,7 +195,11 @@ export function ReportForm(props: ReportFormProps) {
               </FormItem>
             )}
           />
-          <Button disabled={form.formState.isLoading} type="submit">
+          <Button
+            disabled={form.formState.isLoading}
+            type="submit"
+            className="w-full md:w-auto"
+          >
             Enviar
           </Button>
         </form>

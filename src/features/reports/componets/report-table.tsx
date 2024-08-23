@@ -29,15 +29,17 @@ export default function ReportTable(props: ReportPageProps) {
   }
 
   return (
-    <main className="px-7 py-6 overflow-y-scroll max-h-full">
-      <hgroup className="flex justify-between items-center">
+    <main className="px-2 md:px-7 py-6 overflow-y-scroll max-h-full">
+      <hgroup className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-4xl font-sans-accent mb-6">{props.title}</h1>
-        <Button className="flex gap-2">
-          <Link to="/dashboard/reports/add" className="flex gap-2">
-            <CirclePlus className="h-6 w-6" />
-            Denunciar un hecho
-          </Link>
-        </Button>
+        {!isAdmin && (
+          <Button className="flex gap-2">
+            <Link to="/dashboard/reports/add" className="flex gap-2">
+              <CirclePlus className="h-6 w-6" />
+              Denunciar un hecho
+            </Link>
+          </Button>
+        )}
       </hgroup>
       <div className="grid p-2 gap-3">
         <Table>
@@ -74,7 +76,11 @@ export default function ReportTable(props: ReportPageProps) {
                     {report.description.slice(0, 100)}
                   </TableCell>
                   <TableCell>
-                    <ReportStateBadge state={report.state} />
+                    <ReportStateBadge
+                      report_id={report.report_id}
+                      state={report.state}
+                      showSelect={false}
+                    />
                   </TableCell>
                   <TableCell>{report.type.name}</TableCell>
                   <TableCell>
