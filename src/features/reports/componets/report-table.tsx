@@ -77,6 +77,7 @@ export default function ReportTable(props: ReportPageProps) {
                     <ReportStateBadge
                       report_id={report.report_id}
                       state={report.state}
+                      showSelect={false}
                     />
                   </TableCell>
                   <TableCell>{report.type.name}</TableCell>

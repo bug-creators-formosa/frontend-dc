@@ -49,6 +49,7 @@ export default function ReportDetailPage() {
             <ReportStateBadge
               report_id={report.report_id}
               state={report?.state}
+              showSelect={isAdmin}
             />
           )}
         </div>

@@ -20,7 +20,7 @@ export default function AdminReportsPage() {
     return <NotFoundPage />;
   }
 
-  if (isLoading && !reports) {
+  if (isLoading || !reports) {
     return <FullScreenSpinner />;
   }
 

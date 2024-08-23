@@ -18,9 +18,11 @@ import { changeReportState } from "../services/user-reports";
 export function ReportStateBadge({
   report_id,
   state,
+  showSelect = false,
 }: {
   report_id: string;
   state: ReportState;
+  showSelect?: boolean;
 }) {
   const { isAdmin } = useAuth();
   const { mutateAsync, isPending } = useMutation({
@@ -51,7 +53,7 @@ export function ReportStateBadge({
     [REPORT_STATES.SOLVED]: <CircleCheckBig className="h-4 w-4" />,
   };
 
-  if (!isAdmin) {
+  if (!showSelect || !isAdmin) {
     return (
       <Badge className={cn(classes[state], "flex gap-1 text-[14px] max-w-min")}>
         <div>{icons[state]}</div>
