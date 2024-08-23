@@ -30,7 +30,7 @@ export default function ReportTable(props: ReportPageProps) {
 
   return (
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
-      <hgroup className="flex justify-between items-center">
+      <hgroup className="flex flex-col md:flex-row justify-between items-center">
         <h1 className="text-4xl font-sans-accent mb-6">{props.title}</h1>
         {!isAdmin && (
           <Button className="flex gap-2">
