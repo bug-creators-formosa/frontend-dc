@@ -47,6 +47,8 @@ export function CardDonutChart(props: CardDonutChartProps) {
     [props.data]
   ) as ChartConfig;
 
+  console.log(chartConfig);
+
   const activeIndex = useMemo(
     () => props.data.findIndex((item) => item.category === activeCategory),
     [activeCategory]

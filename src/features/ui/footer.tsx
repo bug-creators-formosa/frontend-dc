@@ -32,8 +32,8 @@ export default function Footer() {
             </span>
           </Link>
           <div className="px-5 flex flex-col gap-2 items-center md:items-start mt-4 md:mt-8 ">
-            <Link to="/sign-in">
-              <Button className="p-6 text-2xl">Registra un reclamo</Button>
+            <Link to="/auth/sign-in">
+              <Button className="p-6 text-2xl">Registra una denuncia</Button>
             </Link>
           </div>
         </div>

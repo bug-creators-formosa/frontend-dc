@@ -17,7 +17,9 @@ type CardBarChartProps = {
   data: { category: string; value: number }[];
   barLabel: string;
   title?: string;
+  valueForTickFormatter?: number;
   description?: string;
+  rightContent?: React.ReactNode;
 };
 
 export default function CardBarChart(props: CardBarChartProps) {
@@ -31,8 +33,13 @@ export default function CardBarChart(props: CardBarChartProps) {
   return (
     <Card className="m-4">
       <CardHeader>
-        <CardTitle>{props.title ?? props.barLabel}</CardTitle>
-        <CardDescription>{props.description}</CardDescription>
+        <div className="grid grid-cols-2 gap-1">
+          <div>
+            <CardTitle>{props.title ?? props.barLabel}</CardTitle>
+            <CardDescription>{props.description}</CardDescription>
+          </div>
+          {props.rightContent}
+        </div>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
@@ -48,7 +55,9 @@ export default function CardBarChart(props: CardBarChartProps) {
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(value) =>
+                value.slice(0, props.valueForTickFormatter ?? 3)
+              }
             />
             <ChartTooltip content={<ChartTooltipContent />} />
             <Bar dataKey="value" fill={`var(--color-value)`} radius={4}>
