@@ -21,22 +21,18 @@ import {
   SelectValue,
 } from "@/components/shadcn/ui/select";
 import { Textarea } from "@/components/shadcn/ui/textarea";
-import useAuth from "@/features/auth/hooks/use-auth";
 import { FileInput } from "@/features/reports/componets/file-input";
 import { getReportTypes } from "@/features/reports/services/report-types";
-import {
-  createReport,
-  getOneReport,
-} from "@/features/reports/services/user-reports";
+import { getOneReport } from "@/features/reports/services/user-reports";
 import FullScreenSpinner from "@/features/ui/fullscreen-spinner";
 import { resolveUrl } from "@/lib/utils";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { formSchema } from "../schema/report.schema";
 
 type ReportFormProps = {
   report?: Awaited<ReturnType<typeof getOneReport>>;
+  onSubmit?: (values: z.infer<typeof formSchema>) => Promise<void>;
 };
 
 export function ReportForm(props: ReportFormProps) {
@@ -49,11 +45,6 @@ export function ReportForm(props: ReportFormProps) {
     queryFn: () => getReportTypes(),
   });
 
-  const { error: mutationError, mutateAsync } = useMutation({
-    mutationKey: ["report"],
-    mutationFn: createReport,
-  });
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,8 +54,6 @@ export function ReportForm(props: ReportFormProps) {
       report_type_id: props.report?.type.report_type_id,
     },
   });
-  const navigate = useNavigate();
-  const { isAdmin } = useAuth();
 
   useEffect(() => {
     if (!props.report) return;
@@ -84,17 +73,14 @@ export function ReportForm(props: ReportFormProps) {
     return <p>Ha ocurrido un error: {error.message}</p>;
   }
 
+  console.log(form.formState.errors);
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    await mutateAsync(values);
-    navigate(`/dashboard/reports/${isAdmin ? "admin" : "user"}`);
+    await props?.onSubmit?.(values);
   }
 
   return (
     <>
-      {mutationError && (
-        <FormDescription>{mutationError.message}</FormDescription>
-      )}
       <Form {...form}>
         <form
           noValidate
@@ -196,7 +182,7 @@ export function ReportForm(props: ReportFormProps) {
             )}
           />
           <Button
-            disabled={form.formState.isLoading}
+            disabled={form.formState.isSubmitting}
             type="submit"
             className="w-full md:w-auto"
           >

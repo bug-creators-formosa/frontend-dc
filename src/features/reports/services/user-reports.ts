@@ -76,7 +76,7 @@ export type CreateReportParams = {
     description: string,
     report_type_id: string,
     address: string,
-    image: File
+    image: File | null
 };
 
 export async function createReport(params: CreateReportParams) {
@@ -86,11 +86,35 @@ export async function createReport(params: CreateReportParams) {
         formData.append("description", params.description);
         formData.append("address", params.address);
         formData.append("report_type_id", params.report_type_id);
-        formData.append("image", params.image);
+        if (params.image) {
+            formData.append("image", params.image);
+        }
         const response = await api.post(
             `/reports/`,
             formData
         );
+        return response.data;
+    } catch (err) {
+        console.error("createReport error: ", err);
+        throw err;
+    }
+}
+
+export async function updateReport(params: { report_id: string } & CreateReportParams) {
+    try {
+        const formData = new FormData();
+        formData.append("title", params.title);
+        formData.append("description", params.description);
+        formData.append("address", params.address);
+        formData.append("report_type_id", params.report_type_id);
+        if (params.image) {
+            formData.append("image", params.image);
+        }
+        const response = await api.patch(
+            `/reports/${params.report_id}`,
+            formData
+        );
+        console.log(response);
         return response.data;
     } catch (err) {
         console.error("createReport error: ", err);

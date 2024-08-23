@@ -20,7 +20,7 @@ export const formSchema = z.object({
     report_type_id: z.string({
         message: "El tipo es requerido",
     }),
-    image: z.instanceof(File),
+    image: z.optional(z.instanceof(File)),
     address: z.string({
         message: "Por favor mencione la dirección",
     }),

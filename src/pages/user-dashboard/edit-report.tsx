@@ -1,10 +1,13 @@
 import useAuth from "@/features/auth/hooks/use-auth";
 import { ReportForm } from "@/features/reports/componets/report-form";
-import { getOneReport } from "@/features/reports/services/user-reports";
+import {
+  getOneReport,
+  updateReport,
+} from "@/features/reports/services/user-reports";
 import FullScreenSpinner from "@/features/ui/fullscreen-spinner";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 export default function EditReport() {
   const { report_id } = useParams();
@@ -19,6 +22,11 @@ export default function EditReport() {
       getOneReport({
         report_id: queryKey[1] as string,
       }),
+  });
+  const navigate = useNavigate();
+  const { mutateAsync } = useMutation({
+    mutationKey: ["reports"],
+    mutationFn: updateReport,
   });
 
   if (isLoading) {
@@ -42,7 +50,19 @@ export default function EditReport() {
         </div>
       </hgroup>
       <div className="grid p-2 gap-3">
-        <ReportForm report={report} />
+        <ReportForm
+          report={report}
+          onSubmit={async (values) => {
+            console.log({ values });
+            if (!values) return;
+            await mutateAsync({
+              report_id: report_id ?? "",
+              ...values,
+              image: values.image ?? null,
+            });
+            navigate(`/dashboard/reports/${isAdmin ? "admin" : "user"}`);
+          }}
+        />
       </div>
     </main>
   );
