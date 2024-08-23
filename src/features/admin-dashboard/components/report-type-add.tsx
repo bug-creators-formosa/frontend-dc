@@ -34,6 +34,7 @@ const ReportTypeSchema = z.object({
 export function ReportTypeAdd(props: {
   reportType?: ReportType;
   buttonTitle: string;
+  buttonVariant?: "default" | "outline" | "secondary";
 }) {
   const [openModal, setOpenModal] = useState(false);
 
@@ -82,7 +83,7 @@ export function ReportTypeAdd(props: {
   return (
     <Dialog open={openModal} onOpenChange={setOpenModal}>
       <DialogTrigger asChild>
-        <Button variant="outline">{props.buttonTitle}</Button>
+        <Button variant={props.buttonVariant}>{props.buttonTitle}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

@@ -38,7 +38,11 @@ export default function ReportTypeList(props: ReportTypeListProps) {
               <TableCell>{reportType.description}</TableCell>
 
               <TableCell className="text-right">
-                <ReportTypeAdd buttonTitle="Editar" reportType={reportType} />
+                <ReportTypeAdd
+                  buttonTitle="Editar"
+                  buttonVariant="outline"
+                  reportType={reportType}
+                />
               </TableCell>
             </TableRow>
           );
