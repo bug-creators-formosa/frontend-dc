@@ -6,19 +6,10 @@ import {
 } from "@/components/shadcn/ui/navigation-menu";
 
 import { Button } from "@/components/shadcn/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/shadcn/ui/dropdown-menu";
 import { Logo } from "@/components/svg/logo";
 import { cn } from "@/lib/utils";
 import { Contact, User } from "lucide-react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import UserProfileAvatar from "../admin-dashboard/components/user-profile-avatar";
 import useAuth from "../auth/hooks/use-auth";
 import Offcanvas from "./offcanvas";
 
@@ -73,28 +64,22 @@ function LoginLinks() {
   return (
     <>
       {isAuthenticated && !loading && user && (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="p-0">
-              <UserProfileAvatar user={user} className="text-lg size-10" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() =>
-                isAdmin
-                  ? router("/dashboard/reports/admin")
-                  : router("/dashboard/reports/user")
-              }
-            >
-              {isAdmin ? "Panel" : "Reclamo"}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={signOut}>Cerrar Sesión</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-2 w-full flex-col md:flex-row">
+          <Button
+            onClick={() =>
+              isAdmin
+                ? router("/dashboard/reports/admin")
+                : router("/dashboard/reports/user")
+            }
+            variant={"outline"}
+          >
+            {isAdmin ? "Panel" : "Reclamos"}
+          </Button>
+
+          <Button onClick={signOut} variant={"default"}>
+            Cerrar Sesión
+          </Button>
+        </div>
       )}
       {!isAuthenticated && !loading && (
         <div className="flex flex-col md:flex-row gap-2 pb-3">
