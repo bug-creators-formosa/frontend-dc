@@ -1,5 +1,5 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -9,10 +9,14 @@ export function cn(...inputs: ClassValue[]) {
 export function debounce<A>(func: (...args: A[]) => void, secs: number) {
   let stop = false;
   return (...args: A[]) => {
-      if (!stop) func(...args);
-      stop = true;
-      setTimeout(() => {
-          stop = false;
-      }, secs);
+    if (!stop) func(...args);
+    stop = true;
+    setTimeout(() => {
+      stop = false;
+    }, secs);
   }
+}
+
+export function resolveUrl(url: string) {
+  return import.meta.env.VITE_BACKEND_URL + url;
 }

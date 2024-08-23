@@ -15,10 +15,17 @@ import {
   ReportState,
 } from "@/features/reports/consts/report-states";
 import { getReportsByUser } from "@/features/reports/services/user-reports";
-import { cn } from "@/lib/utils";
+import { cn, resolveUrl } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import { CircleCheckBig, CircleDot, CirclePlay, CircleX } from "lucide-react";
+import {
+  CircleCheckBig,
+  CircleDot,
+  CirclePlay,
+  CirclePlus,
+  CircleX,
+} from "lucide-react";
 import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 export default function ReportsPage() {
   const {
@@ -40,8 +47,14 @@ export default function ReportsPage() {
 
   return (
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
-      <hgroup>
+      <hgroup className="flex justify-between items-center">
         <h1 className="text-4xl font-sans-accent mb-6">Mis denuncias</h1>
+        <Button className="flex gap-2">
+          <Link to="/dashboard/reports/add" className="flex gap-2">
+            <CirclePlus className="h-6 w-6" />
+            Denunciar un hecho
+          </Link>
+        </Button>
       </hgroup>
       <div className="grid p-2 gap-3">
         <Table>
@@ -53,6 +66,7 @@ export default function ReportsPage() {
               <TableHead>Estado</TableHead>
               <TableHead>Tipo</TableHead>
               <TableHead>Modificado</TableHead>
+              <TableHead>Dirección</TableHead>
               <TableHead className="text-right">Acciones</TableHead>
             </TableRow>
           </TableHeader>
@@ -60,9 +74,12 @@ export default function ReportsPage() {
             {reports?.map((report) => {
               return (
                 <TableRow>
-                  <TableCell>
+                  <TableCell className="max-w-14">
                     {report.image_url ? (
-                      <img src={report.image_url} alt={report.description} />
+                      <img
+                        src={resolveUrl(report.image_url)}
+                        alt={report.description}
+                      />
                     ) : (
                       <Skeleton className="w-8 h-8 animate-none" />
                     )}
@@ -78,7 +95,8 @@ export default function ReportsPage() {
                   <TableCell>
                     {report.state_change_at.toLocaleDateString()}
                   </TableCell>
-                  <TableCell className="flex justify-end gap-2">
+                  <TableCell>{report.address}</TableCell>
+                  <TableCell className="flex justify-end items-center gap-2 h-full">
                     <Button variant="default">Ver</Button>
                     <Button variant="outline">Editar</Button>
                   </TableCell>
