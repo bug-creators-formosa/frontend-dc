@@ -15,5 +15,7 @@ export default function ReportPage() {
     return <p>Ha ocurrido un error: {error?.message}</p>;
   }
 
-  return <ReportTable reports={reports} isLoading={isLoading} />;
+  return (
+    <ReportTable title="Mis reclamos" reports={reports} isLoading={isLoading} />
+  );
 }

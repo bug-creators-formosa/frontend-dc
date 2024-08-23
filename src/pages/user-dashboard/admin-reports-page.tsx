@@ -23,5 +23,7 @@ export default function AdminReportsPage() {
     return <p>Ha ocurrido un error: {error?.message}</p>;
   }
 
-  return <ReportTable reports={reports} isLoading={isLoading} />;
+  return (
+    <ReportTable title="Reclamos" reports={reports} isLoading={isLoading} />
+  );
 }

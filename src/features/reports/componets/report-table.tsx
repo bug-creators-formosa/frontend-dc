@@ -8,6 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/shadcn/ui/table";
+import useAuth from "@/features/auth/hooks/use-auth";
 import { resolveUrl } from "@/lib/utils";
 import { CirclePlus } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -18,9 +19,11 @@ import { ReportStateBadge } from "./report-state-badge";
 type ReportPageProps = {
   reports: Awaited<ReturnType<typeof getReports>>;
   isLoading: boolean;
+  title: string;
 };
 
 export default function ReportTable(props: ReportPageProps) {
+  const { isAdmin } = useAuth();
   if (props.isLoading) {
     return <ReportPageSkeleton />;
   }
@@ -28,7 +31,7 @@ export default function ReportTable(props: ReportPageProps) {
   return (
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
       <hgroup className="flex justify-between items-center">
-        <h1 className="text-4xl font-sans-accent mb-6">Mis reclamos</h1>
+        <h1 className="text-4xl font-sans-accent mb-6">{props.title}</h1>
         <Button className="flex gap-2">
           <Link to="/dashboard/reports/add" className="flex gap-2">
             <CirclePlus className="h-6 w-6" />
@@ -83,14 +86,18 @@ export default function ReportTable(props: ReportPageProps) {
                       <Link to={`/dashboard/reports/${report.report_id}`}>
                         <Button variant="default">Ver</Button>
                       </Link>
-                      <Button variant="outline">
-                        <Link
-                          to={`/dashboard/reports/${report.report_id}/edit`}
-                        >
-                          Editar
-                        </Link>
-                      </Button>
-                      <DeleteButton report_id={report.report_id} />
+                      {!isAdmin && (
+                        <>
+                          <Button variant="outline">
+                            <Link
+                              to={`/dashboard/reports/${report.report_id}/edit`}
+                            >
+                              Editar
+                            </Link>
+                          </Button>
+                          <DeleteButton report_id={report.report_id} />
+                        </>
+                      )}
                     </div>
                   </TableCell>
                 </TableRow>
