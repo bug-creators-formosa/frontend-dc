@@ -5,7 +5,7 @@ import { deleteReport } from "../services/user-reports";
 export default function DeleteButton({ report_id }: { report_id: string }) {
   const { mutateAsync, isPending } = useMutation({
     mutationFn: deleteReport,
-    mutationKey: ["reports", "delete"],
+    mutationKey: ["reports", "delete", report_id],
   });
   const client = useQueryClient();
 
