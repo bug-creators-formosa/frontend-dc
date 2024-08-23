@@ -30,7 +30,7 @@ export default function SelectorCardBarChart(props: SelectorCardBarChartProps) {
     <CardBarChart
       data={values}
       barLabel={selected}
-      valueForTickFormatter={10}
+      valueForTickFormatter={12}
       title={props.title}
       description={`${props.description} ${selected}`}
       rightContent={

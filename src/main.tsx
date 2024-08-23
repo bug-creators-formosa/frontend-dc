@@ -26,6 +26,7 @@ import AdminReportsPage from "./pages/user-dashboard/admin-reports-page";
 import EditReport from "./pages/user-dashboard/edit-report";
 import ReportDetailPage from "./pages/user-dashboard/report-detail";
 import ReportsPage from "./pages/user-dashboard/user-reports-page";
+import ReportTypesPage from "./pages/admin-dashboard/report-types";
 
 const router = createBrowserRouter([
   {
@@ -70,7 +71,7 @@ const router = createBrowserRouter([
       { path: "/dashboard/reports/:report_id/edit", element: <EditReport /> },
       { path: "/dashboard/users", element: <UserListPage /> },
       { path: "/dashboard/users/:userId", element: <UserDetailPage /> },
-      { path: "/dashboard/map", element: <MapPage /> },
+      { path: "/dashboard/report-types", element: <ReportTypesPage /> },
       {
         path: "*",
         element: <NotFoundPage />,

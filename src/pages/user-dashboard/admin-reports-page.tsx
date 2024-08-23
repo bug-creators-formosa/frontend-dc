@@ -20,11 +20,11 @@ export default function AdminReportsPage() {
     return <NotFoundPage />;
   }
 
-  if (isLoading || !reports) {
+  if (isLoading) {
     return <FullScreenSpinner />;
   }
 
-  if (error) {
+  if (error || !reports) {
     return <p>Ha ocurrido un error: {error?.message}</p>;
   }
 
