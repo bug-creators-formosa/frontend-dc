@@ -2,10 +2,7 @@ import CardAreaChart from "@/features/admin-dashboard/components/charts/card-are
 import CardBarChart from "@/features/admin-dashboard/components/charts/card-bar-chart";
 import { CardDonutChart } from "@/features/admin-dashboard/components/charts/card-donut-chart";
 import CardPieChart from "@/features/admin-dashboard/components/charts/card-pie-chart";
-import {
-  getReportsByStateAndMonth,
-  getReportTypesMostReported,
-} from "@/features/admin-dashboard/services/reports";
+import { getReportTypesMostReported } from "@/features/admin-dashboard/services/reports";
 import {
   getUsersByMonth,
   MONTH_NAMES,
@@ -103,10 +100,10 @@ export default function DashboardIndex() {
         />
       )}
       {!isLoadingReportTypes && REPORT_FORMATTED && (
-        <CardPieChart data={REPORT_FORMATTED} pieLabel="Denuncias" />
+        <CardPieChart data={REPORT_FORMATTED} pieLabel="Reclamo" />
       )}
       {!isLoadingReportTypes && REPORT_FORMATTED && (
-        <CardDonutChart data={REPORT_FORMATTED} donutLabel="Denuncias" />
+        <CardDonutChart data={REPORT_FORMATTED} donutLabel="Reclamo" />
       )}
     </div>
   );

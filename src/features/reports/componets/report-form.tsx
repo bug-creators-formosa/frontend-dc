@@ -109,7 +109,7 @@ export function ReportForm(props: ReportFormProps) {
                   <Input placeholder="Título de una denuncia" {...field} />
                 </FormControl>
                 <FormDescription>
-                  ¿Qué deseas denunciar en pocas palabras?
+                  ¿Qué deseas reclamar en pocas palabras?
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -144,7 +144,7 @@ export function ReportForm(props: ReportFormProps) {
                 : undefined
             }
             description="Pon detalles acerca de la problemática"
-            placeholder="Una imagen relacionada a la denuncia"
+            placeholder="Una imagen relacionada al reclamo"
             onChange={(f) => {
               form.setValue("image", f);
             }}

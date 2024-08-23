@@ -41,7 +41,7 @@ export function FileInput(props: FileInputProps) {
         <FormControl>
           <Input
             type="file"
-            placeholder="Una imagen relacionada a la denuncia"
+            placeholder="Una imagen relacionada a l reclamo"
             onChange={handleChange}
             {...rest}
           />
