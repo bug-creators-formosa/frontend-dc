@@ -32,12 +32,14 @@ export default function ReportTable(props: ReportPageProps) {
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
       <hgroup className="flex justify-between items-center">
         <h1 className="text-4xl font-sans-accent mb-6">{props.title}</h1>
-        <Button className="flex gap-2">
-          <Link to="/dashboard/reports/add" className="flex gap-2">
-            <CirclePlus className="h-6 w-6" />
-            Denunciar un hecho
-          </Link>
-        </Button>
+        {!isAdmin && (
+          <Button className="flex gap-2">
+            <Link to="/dashboard/reports/add" className="flex gap-2">
+              <CirclePlus className="h-6 w-6" />
+              Denunciar un hecho
+            </Link>
+          </Button>
+        )}
       </hgroup>
       <div className="grid p-2 gap-3">
         <Table>
