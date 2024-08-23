@@ -75,7 +75,7 @@ export default function Sidebar() {
           className="z-10 flex-1"
           onClick={() =>
             // When the sidebar is collapsed, expand it when the user clicks on it
-            setExpanded(true)
+            setExpanded(!expanded)
           }
         >
           <NavigationMenu className={cn(linkClassnames)}>
