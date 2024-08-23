@@ -67,7 +67,7 @@ export default function ReportsPage() {
               <TableHead>Tipo</TableHead>
               <TableHead>Modificado</TableHead>
               <TableHead>Dirección</TableHead>
-              <TableHead className="text-right">Acciones</TableHead>
+              <TableHead>Acciones</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -98,7 +98,7 @@ export default function ReportsPage() {
                     {report.state_change_at.toLocaleDateString()}
                   </TableCell>
                   <TableCell>{report.address}</TableCell>
-                  <TableCell className="flex justify-end items-center gap-2 h-full">
+                  <TableCell className="align-middle *:mx-2 text-left">
                     <Button variant="default">Ver</Button>
                     <Button variant="outline">
                       <Link to={`/dashboard/reports/${report.report_id}/edit`}>
