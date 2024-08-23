@@ -2,7 +2,8 @@ import { ReportForm } from "@/features/reports/componets/report-form";
 import { getOneReport } from "@/features/reports/services/user-reports";
 import FullScreenSpinner from "@/features/ui/fullscreen-spinner";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
+import { Link, useParams } from "react-router-dom";
 
 export default function EditReport() {
   const { report_id } = useParams();
@@ -28,10 +29,15 @@ export default function EditReport() {
 
   return (
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
-      <hgroup className="flex justify-between items-center">
-        <h1 className="text-4xl font-sans-accent mb-6">
-          Reporta un problema en tu ciudad
-        </h1>
+      <hgroup className="flex justify-start items-center">
+        <div className="flex items-center h-full">
+          <Link to="/dashboard/reports">
+            <ArrowLeft />
+          </Link>
+        </div>
+        <div className="flex items-center">
+          <h1 className="text-4xl font-sans-accent">Edita un reporte</h1>
+        </div>
       </hgroup>
       <div className="grid p-2 gap-3">
         <ReportForm report={report} />
