@@ -30,7 +30,7 @@ export default function EditReport() {
   }
 
   return (
-    <main className="px-7 py-6 overflow-y-scroll max-h-full">
+    <main className="px-2 md:px-7 py-6 overflow-y-scroll max-h-full">
       <hgroup className="flex justify-start items-center">
         <div className="flex items-center h-full">
           <Link to={`/dashboard/reports/${isAdmin ? "admin" : "user"}`}>

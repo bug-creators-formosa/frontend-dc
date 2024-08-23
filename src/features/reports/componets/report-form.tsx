@@ -195,7 +195,11 @@ export function ReportForm(props: ReportFormProps) {
               </FormItem>
             )}
           />
-          <Button disabled={form.formState.isLoading} type="submit">
+          <Button
+            disabled={form.formState.isLoading}
+            type="submit"
+            className="w-full md:w-auto"
+          >
             Enviar
           </Button>
         </form>
