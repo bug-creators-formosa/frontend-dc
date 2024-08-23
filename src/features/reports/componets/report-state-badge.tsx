@@ -28,8 +28,8 @@ export function ReportStateBadge({ state }: { state: ReportState }) {
 
   return (
     <Badge className={cn(classes[state], "flex gap-1 text-[14px] max-w-min")}>
-      {icons[state]}
-      {text[state]}
+      <div>{icons[state]}</div>
+      <p className="text-nowrap">{text[state]}</p>
     </Badge>
   );
 }
