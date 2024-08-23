@@ -30,8 +30,6 @@ export default function CardBarChart(props: CardBarChartProps) {
     },
   } satisfies ChartConfig;
 
-  console.log(props.rightContent);
-
   return (
     <Card className="m-4">
       <CardHeader>

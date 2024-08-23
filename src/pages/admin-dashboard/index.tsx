@@ -1,12 +1,14 @@
 import CardAreaChart from "@/features/admin-dashboard/components/charts/card-area-chart";
-import CardBarChart from "@/features/admin-dashboard/components/charts/card-bar-chart";
 import { CardDonutChart } from "@/features/admin-dashboard/components/charts/card-donut-chart";
-import CardPieChart from "@/features/admin-dashboard/components/charts/card-pie-chart";
 import SelectorCardBarChart, {
   SelectorCardBarChartProps,
 } from "@/features/admin-dashboard/components/charts/selector-card-bard-char";
 import { reportTypesByState } from "@/features/admin-dashboard/services/report-types";
-import { getReportTypesMostReported } from "@/features/admin-dashboard/services/reports";
+import {
+  getReportsByMonth,
+  getReportsByStateAndMonth,
+  getReportTypesMostReported,
+} from "@/features/admin-dashboard/services/reports";
 import {
   getUsersByMonth,
   MONTH_NAMES,
@@ -14,17 +16,37 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 export default function DashboardIndex() {
+  // Usuarios por mes
   const { data: usersByMonth, isLoading: isLoadingUsersByMonth } = useQuery({
     queryKey: ["users-by-month"],
     queryFn: () => getUsersByMonth(),
   });
 
+  // Reclamos por mes
+  const { data: reportsByMonth, isLoading: isLoadingReportsByMonth } = useQuery(
+    {
+      queryKey: ["report-by-month"],
+      queryFn: () => getReportsByMonth(),
+    }
+  );
+
+  // Reclamos por estado y mes
+  const {
+    data: reportsByStateAndMonth,
+    isLoading: isLoadingReportsByStateAndMonth,
+  } = useQuery({
+    queryKey: ["report-by-state-and-month"],
+    queryFn: () => getReportsByStateAndMonth(),
+  });
+
+  // Tipo de Reclamos más reportados
   const { data: reportTypesMostReported, isLoading: isLoadingReportTypes } =
     useQuery({
       queryKey: ["report-types-most-reported"],
       queryFn: () => getReportTypesMostReported(),
     });
 
+  // Tipo de Reclamos por estado
   const { data: reportTypeByState, isLoading: isLoadingReportTypeByState } =
     useQuery({
       queryKey: ["report-types-by-state"],
@@ -36,6 +58,9 @@ export default function DashboardIndex() {
     value: +report.reports,
     fill: `hsl(${i * 30}, 70%, 50%)`,
   }));
+
+  console.log({ REPORT_FORMATTED });
+  console.log({ reportTypesMostReported });
 
   const REPORT_TYPE_BY_STATE_FORMATTED =
     reportTypeByState &&
@@ -53,7 +78,34 @@ export default function DashboardIndex() {
       return acc;
     }, {}) as SelectorCardBarChartProps["data"]);
 
-  console.log(REPORT_TYPE_BY_STATE_FORMATTED);
+  const REPORTS_BY_STATE_AND_MONTH_FORMATTED =
+    reportsByStateAndMonth &&
+    (Object.keys(reportsByStateAndMonth).reduce((acc, key) => {
+      const [month, year] = key.split("-").map(Number);
+      console.log({ key, year, month });
+
+      const newKey = `${MONTH_NAMES[month - 1]} ${year}`;
+
+      console.log({ key, newKey });
+
+      // @ts-ignore
+      acc[newKey] = [
+        { category: "Abiertas", value: reportsByStateAndMonth[key].opened },
+        { category: "Cerradas", value: reportsByStateAndMonth[key].closed },
+        {
+          category: "En progreso",
+          value: reportsByStateAndMonth[key]["in progress"],
+        },
+        { category: "Resueltas", value: reportsByStateAndMonth[key].solved },
+      ];
+      return acc;
+    }, {}) as SelectorCardBarChartProps["data"]);
+
+  const REPORTS_BY_MONTH_FORMATTED = reportsByMonth?.map((report, i) => ({
+    category: `${MONTH_NAMES[report.month - 1]} ${report.year}`,
+    value: report.reports,
+    fill: `hsl(${i * 30}, 70%, 50%)`,
+  }));
 
   const USERS_BY_MONTH_FORMATTED = usersByMonth?.map((user, i) => ({
     category: `${MONTH_NAMES[user.month - 1]} ${user.year}`,
@@ -66,33 +118,45 @@ export default function DashboardIndex() {
       {!isLoadingUsersByMonth &&
         USERS_BY_MONTH_FORMATTED &&
         USERS_BY_MONTH_FORMATTED?.length > 0 && (
-          <CardBarChart
-            data={USERS_BY_MONTH_FORMATTED}
-            barLabel="Usuarios"
-            description="Creados por mes"
-          />
-        )}
-      {!isLoadingUsersByMonth &&
-        USERS_BY_MONTH_FORMATTED &&
-        USERS_BY_MONTH_FORMATTED?.length > 0 && (
           <CardAreaChart
             data={USERS_BY_MONTH_FORMATTED}
-            areaLabel="Usuarios"
-            description="Creados por mes"
+            areaLabel={"Ciudadanos registrados"}
+            description="Desde el 1ro de Enero hasta hoy."
           />
         )}
-      {!isLoadingReportTypes &&
-        REPORT_FORMATTED &&
-        REPORT_FORMATTED?.length > 0 && (
-          <CardPieChart data={REPORT_FORMATTED} pieLabel="Denuncias" />
+      {!isLoadingReportsByMonth &&
+        REPORTS_BY_MONTH_FORMATTED &&
+        REPORTS_BY_MONTH_FORMATTED?.length > 0 && (
+          <CardAreaChart
+            data={REPORTS_BY_MONTH_FORMATTED}
+            areaLabel="Reclamos"
+            description="Desde el 1ro de Enero hasta hoy."
+          />
         )}
+      {!isLoadingReportsByStateAndMonth &&
+        REPORTS_BY_STATE_AND_MONTH_FORMATTED && (
+          <SelectorCardBarChart
+            data={REPORTS_BY_STATE_AND_MONTH_FORMATTED}
+            title="Reclamos por estado y mes"
+            description="Estado de los Reclamos en"
+          />
+        )}
+
       {!isLoadingReportTypes &&
         REPORT_FORMATTED &&
         REPORT_FORMATTED?.length > 0 && (
-          <CardDonutChart data={REPORT_FORMATTED} donutLabel="Denuncias" />
+          <CardDonutChart
+            data={REPORT_FORMATTED}
+            donutLabel="Reclamos"
+            description="Top 5 de reclamos de ciudadanos."
+          />
         )}
       {!isLoadingReportTypeByState && REPORT_TYPE_BY_STATE_FORMATTED && (
-        <SelectorCardBarChart data={REPORT_TYPE_BY_STATE_FORMATTED} />
+        <SelectorCardBarChart
+          data={REPORT_TYPE_BY_STATE_FORMATTED}
+          title="Tipos de Reclamos por estado"
+          description="Estados de los Reclamos del tipo"
+        />
       )}
     </div>
   );

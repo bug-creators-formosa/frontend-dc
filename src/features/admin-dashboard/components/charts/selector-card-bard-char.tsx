@@ -10,6 +10,8 @@ import {
 
 export type SelectorCardBarChartProps = {
   data: { [x: string]: { category: string; value: number }[] };
+  title?: string;
+  description?: string;
 };
 
 export default function SelectorCardBarChart(props: SelectorCardBarChartProps) {
@@ -29,10 +31,10 @@ export default function SelectorCardBarChart(props: SelectorCardBarChartProps) {
       data={values}
       barLabel={selected}
       valueForTickFormatter={10}
-      title="Tipos de Reportes por estado"
-      description={`Estados de los reportes del tipo ${selected}`}
+      title={props.title}
+      description={`${props.description} ${selected}`}
       rightContent={
-        <Select value={selected} onValueChange={setSelected}>
+        <Select value={selected} onValueChange={handleSelect}>
           <SelectTrigger
             className="ml-auto h-7 w-auto rounded-lg pl-2.5"
             aria-label="Seleccionar un valor"
