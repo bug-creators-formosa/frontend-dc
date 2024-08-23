@@ -2,6 +2,15 @@ import CardAreaChart from "@/features/admin-dashboard/components/charts/card-are
 import CardBarChart from "@/features/admin-dashboard/components/charts/card-bar-chart";
 import { CardDonutChart } from "@/features/admin-dashboard/components/charts/card-donut-chart";
 import CardPieChart from "@/features/admin-dashboard/components/charts/card-pie-chart";
+import {
+  getReportsByStateAndMonth,
+  getReportTypesMostReported,
+} from "@/features/admin-dashboard/services/reports";
+import {
+  getUsersByMonth,
+  MONTH_NAMES,
+} from "@/features/admin-dashboard/services/users";
+import { useQuery } from "@tanstack/react-query";
 
 const USERS_CREATED_BY_MONTH = [
   { category: "Enero", value: 100 },
@@ -48,20 +57,57 @@ const REPORTS_BY_TYPE = [
 ];
 
 export default function DashboardIndex() {
+  const { data: usersByMonth, isLoading: isLoadingUsersByMonth } = useQuery({
+    queryKey: ["users-by-month"],
+    queryFn: () => getUsersByMonth(),
+  });
+
+  const { data: reportTypesMostReported, isLoading: isLoadingReportTypes } =
+    useQuery({
+      queryKey: ["report-types-most-reported"],
+      queryFn: () => getReportTypesMostReported(),
+    });
+
+  // const { data: byStateAndMonth, isLoading: isLoadingByStateAndMonth } =
+  //   useQuery({
+  //     queryKey: ["by-state-and-month"],
+  //     queryFn: () => getReportsByStateAndMonth(),
+  //   });
+
+  const REPORT_FORMATTED = reportTypesMostReported?.map((report, i) => ({
+    category: report.type_name,
+    value: +report.reports,
+    fill: `hsl(${i * 30}, 70%, 50%)`,
+  }));
+
+  const USERS_BY_MONTH_FORMATTED = usersByMonth?.map((user, i) => ({
+    category: `${MONTH_NAMES[user.month - 1]} ${user.year}`,
+    value: user.users,
+    fill: `hsl(${i * 30}, 70%, 50%)`,
+  }));
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 ">
-      <CardBarChart
-        data={USERS_CREATED_BY_MONTH}
-        barLabel="Usuarios"
-        description="Creados por mes"
-      />
-      <CardAreaChart
-        data={USERS_CREATED_BY_MONTH}
-        areaLabel="Usuarios"
-        description="Creados por mes"
-      />
-      <CardPieChart data={REPORTS_BY_TYPE} pieLabel="Denuncias" />
-      <CardDonutChart data={REPORTS_BY_TYPE} donutLabel="Denuncias" />
+      {!isLoadingUsersByMonth && USERS_BY_MONTH_FORMATTED && (
+        <CardBarChart
+          data={USERS_BY_MONTH_FORMATTED}
+          barLabel="Usuarios"
+          description="Creados por mes"
+        />
+      )}
+      {!isLoadingUsersByMonth && USERS_BY_MONTH_FORMATTED && (
+        <CardAreaChart
+          data={USERS_BY_MONTH_FORMATTED}
+          areaLabel="Usuarios"
+          description="Creados por mes"
+        />
+      )}
+      {!isLoadingReportTypes && REPORT_FORMATTED && (
+        <CardPieChart data={REPORT_FORMATTED} pieLabel="Denuncias" />
+      )}
+      {!isLoadingReportTypes && REPORT_FORMATTED && (
+        <CardDonutChart data={REPORT_FORMATTED} donutLabel="Denuncias" />
+      )}
     </div>
   );
 }

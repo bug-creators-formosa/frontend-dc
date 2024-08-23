@@ -40,7 +40,7 @@ export default function CardBarChart(props: CardBarChartProps) {
             accessibilityLayer
             data={props.data}
             margin={{
-              top: 20,
+              top: 30,
             }}
           >
             <XAxis

@@ -39,3 +39,35 @@ export async function updateUserRoles(userId: string, roles: string[]) {
     throw err;
   }
 }
+
+type UserByMonth = {
+  users: number;
+  month_date: string;
+  year: number;
+  month: number;
+};
+
+export const MONTH_NAMES = [
+  "Ene",
+  "Feb",
+  "Mar",
+  "Abr",
+  "May",
+  "Jun",
+  "Jul",
+  "Ago",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dic",
+];
+
+export async function getUsersByMonth() {
+  try {
+    const response = await api.get<UserByMonth[]>("/users/by-month");
+    return response.data;
+  } catch (err) {
+    console.error("getUsersByMonth error: ", err);
+    throw err;
+  }
+}
