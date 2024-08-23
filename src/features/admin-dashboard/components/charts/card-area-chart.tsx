@@ -34,7 +34,10 @@ export default function CardAreaChart(props: CardAreaChartProps) {
         <CardDescription>{props.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+        <ChartContainer
+          config={chartConfig}
+          className="min-h-[200px] max-h-[300px] w-full"
+        >
           <AreaChart
             accessibilityLayer
             data={props.data}
