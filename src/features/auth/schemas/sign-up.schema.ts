@@ -26,6 +26,12 @@ export const passwordFullSchema = z.object({
 });
 
 export const signUpSchema = z.object({
+    names: z.string().min(1, {
+        message: "Los nombres son requeridos"
+    }),
+    surnames: z.string().min(1, {
+        message: "Los apellidos son requeridos"
+    }),
     username: z.string().min(1, {
         message: "El nombre de usuario es requerido",
     }),

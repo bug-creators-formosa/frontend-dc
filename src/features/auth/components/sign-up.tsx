@@ -44,7 +44,7 @@ export default function SignUp() {
       const error = err as AxiosError;
       console.log("Hubo un error...", err);
       console.log(error.code);
-      if (error.response.status === 409) {
+      if (error.response?.status === 409) {
         setErrorMessage("El usuario ya existe");
       }
       if (error.code === "ERR_NETWORK") {
@@ -66,6 +66,34 @@ export default function SignUp() {
       )}
       <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex gap-2">
+            <FormField
+              control={control}
+              name="names"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nombre/s</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ingrese su nombre" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={control}
+              name="surnames"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Apellido/s</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Ingrese su apellido" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <FormField
             control={control}
             name="username"

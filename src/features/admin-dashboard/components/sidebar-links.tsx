@@ -1,11 +1,13 @@
+import useAuth from "@/features/auth/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { DashboardIcon } from "@radix-ui/react-icons";
-import { Map, Users } from "lucide-react";
+import { Map, NotepadText, Users } from "lucide-react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import SectionLink from "./section-link";
 import SidebarItem from "./sidebar-item";
 
-const LINKS = [
+const ADMIN_LINKS = [
   {
     section: "Dashboard",
     icon: <DashboardIcon className="h-6 w-6" />,
@@ -23,10 +25,26 @@ const LINKS = [
   },
 ];
 
+const LINKS = [
+  {
+    section: "Mis denuncias",
+    icon: <NotepadText className="h-6 w-6" />,
+    link: "/dashboard/reports",
+  },
+];
+
 export default function SidebarLinks() {
   const currentPath = window.location.pathname;
+  const { isAdmin } = useAuth();
+  const links = useMemo(() => {
+    if (isAdmin) {
+      return ADMIN_LINKS;
+    } else {
+      return LINKS;
+    }
+  }, [isAdmin]);
 
-  return LINKS.map((linkSection) => {
+  return links.map((linkSection) => {
     // @ts-expect-error Later we can add a `links` prop
     if (linkSection.link && !linkSection.links) {
       const activeClassnames = cn({

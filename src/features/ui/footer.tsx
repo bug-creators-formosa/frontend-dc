@@ -8,33 +8,32 @@ const FOOTER_LINKS = [
   {
     icon: <InstagramIcon className="w-6 fill-foreground" />,
     to: "https://www.instagram.com/example/",
-    text: "PlaSeC",
+    text: "ComunidadActiva",
   },
   {
     icon: <FacebookIcon className="w-6 fill-foreground" />,
     to: "https://www.facebook.com/example/",
-    text: "PlaSeC",
+    text: "ComunidadActiva",
   },
 ];
 
 export default function Footer() {
   return (
     <footer className="bg-background text-foreground flex flex-col gap-4 mt-24">
-      <div className="flex justify-between flex-wrap mx-auto content-center w-full lg:max-w-[70%] gap-2 md:gap-12">
-        <div className="min-h-[30vh]">
+      <div className="flex justify-between mx-auto content-center w-full lg:max-w-[70%] gap-2 md:gap-12">
+        <div className="min-h-[30vh] w-full md:max-w-full flex flex-col justify-center">
           <Link
-            className="flex gap-2 text-[5rem] items-center flex-1 justify-center lg:justify-start p-2 md:p-5"
+            className="flex gap-2 text-[3rem] items-center flex-1 justify-center lg:justify-start p-2 md:p-5"
             to="/"
           >
             <WhiteLogo className="w-[80px] h-[80px] fill-background stroke-foreground" />
-            <span className="font-sans-accent text-center">Template</span>
+            <span className="font-sans-accent text-center">
+              ComunidadActiva
+            </span>
           </Link>
-          <div className="px-5 flex flex-col gap-2 items-start mt-4 md:mt-8">
-            <p className="text-2xl font-regular font-sans-accent text-center md:text-start">
-              Slogan
-            </p>
+          <div className="px-5 flex flex-col gap-2 items-center md:items-start mt-4 md:mt-8 ">
             <Link to="/sign-in">
-              <Button>Call to Action</Button>
+              <Button className="p-6 text-2xl">Registra una denuncia</Button>
             </Link>
           </div>
         </div>
@@ -66,11 +65,11 @@ export default function Footer() {
       </div>
       <div className="border-t border-slate-100/50 col-span-2 flex justify-around md:justify-between items-center px-2 py-2 md:p-5 mt-8 w-full">
         <div className="w-max">
-          <p>© 2024 PlaSeC</p>
+          <p>© 2024 ComunidadActiva</p>
         </div>
         <div className="flex gap-4 md:gap-7 w-max">
-          <p>Términos y condiciones</p>
-          <p>Políticas de privacidad</p>
+          <a href="">Términos y condiciones</a>
+          <a href="">Políticas de privacidad</a>
         </div>
       </div>
     </footer>

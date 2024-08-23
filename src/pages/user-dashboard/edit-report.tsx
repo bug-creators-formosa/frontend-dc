@@ -1,0 +1,41 @@
+import { ReportForm } from "@/features/reports/componets/report-form";
+import { getOneReport } from "@/features/reports/services/user-reports";
+import FullScreenSpinner from "@/features/ui/fullscreen-spinner";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+
+export default function EditReport() {
+  const { report_id } = useParams();
+  const {
+    data: report,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["report", report_id],
+    queryFn: ({ queryKey }) =>
+      getOneReport({
+        report_id: queryKey[1] as string,
+      }),
+  });
+
+  if (isLoading) {
+    return <FullScreenSpinner />;
+  }
+
+  if (error) {
+    return <p>Ha ocurrido un error: {error.message}</p>;
+  }
+
+  return (
+    <main className="px-7 py-6 overflow-y-scroll max-h-full">
+      <hgroup className="flex justify-between items-center">
+        <h1 className="text-4xl font-sans-accent mb-6">
+          Reporta un problema en tu ciudad
+        </h1>
+      </hgroup>
+      <div className="grid p-2 gap-3">
+        <ReportForm report={report} />
+      </div>
+    </main>
+  );
+}
