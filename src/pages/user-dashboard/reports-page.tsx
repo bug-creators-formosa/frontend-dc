@@ -1,4 +1,3 @@
-import { Badge } from "@/components/shadcn/ui/badge";
 import { Button } from "@/components/shadcn/ui/button";
 import { Skeleton } from "@/components/shadcn/ui/skeleton";
 import {
@@ -10,21 +9,11 @@ import {
   TableRow,
 } from "@/components/shadcn/ui/table";
 import DeleteButton from "@/features/reports/componets/delete-button";
-import {
-  REPORT_STATES,
-  ReportState,
-} from "@/features/reports/consts/report-states";
+import { ReportStateBadge } from "@/features/reports/componets/report-state-badge";
 import { getReportsByUser } from "@/features/reports/services/user-reports";
-import { cn, resolveUrl } from "@/lib/utils";
+import { resolveUrl } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
-import {
-  CircleCheckBig,
-  CircleDot,
-  CirclePlay,
-  CirclePlus,
-  CircleX,
-} from "lucide-react";
-import { ReactNode } from "react";
+import { CirclePlus } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function ReportsPage() {
@@ -99,7 +88,9 @@ export default function ReportsPage() {
                   </TableCell>
                   <TableCell>{report.address}</TableCell>
                   <TableCell className="align-middle *:mx-2 text-left">
-                    <Button variant="default">Ver</Button>
+                    <Link to={`/dashboard/reports/${report.report_id}`}>
+                      <Button variant="default">Ver</Button>
+                    </Link>
                     <Button variant="outline">
                       <Link to={`/dashboard/reports/${report.report_id}/edit`}>
                         Editar
@@ -171,35 +162,5 @@ function ReportPageSkeleton() {
         </TableBody>
       </Table>
     </main>
-  );
-}
-
-function ReportStateBadge({ state }: { state: ReportState }) {
-  const classes: Record<ReportState, string> = {
-    [REPORT_STATES.OPENED]: "bg-blue-500",
-    [REPORT_STATES.CLOSED]: "bg-red-400",
-    [REPORT_STATES.IN_PROGRESS]: "bg-blue-500",
-    [REPORT_STATES.SOLVED]: "bg-green-400",
-  };
-
-  const text: Record<ReportState, string> = {
-    [REPORT_STATES.OPENED]: "Abierta",
-    [REPORT_STATES.CLOSED]: "Cerrada",
-    [REPORT_STATES.IN_PROGRESS]: "En progreso",
-    [REPORT_STATES.SOLVED]: "Solucionada",
-  };
-
-  const icons: Record<ReportState, ReactNode> = {
-    [REPORT_STATES.OPENED]: <CircleDot className="h-4 w-4" />,
-    [REPORT_STATES.CLOSED]: <CircleX className="h-4 w-4" />,
-    [REPORT_STATES.IN_PROGRESS]: <CirclePlay className="h-4 w-4" />,
-    [REPORT_STATES.SOLVED]: <CircleCheckBig className="h-4 w-4" />,
-  };
-
-  return (
-    <Badge className={cn(classes[state], "flex gap-1 text-[14px] max-w-min")}>
-      {icons[state]}
-      {text[state]}
-    </Badge>
   );
 }
