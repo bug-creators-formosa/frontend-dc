@@ -1,7 +1,7 @@
 import useAuth from "@/features/auth/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { DashboardIcon } from "@radix-ui/react-icons";
-import { CircleDot, NotepadText } from "lucide-react";
+import { CircleDot, ListCollapse, NotepadText, Users } from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import SectionLink from "./section-link";
@@ -18,18 +18,18 @@ const ADMIN_LINKS = [
     icon: <CircleDot className="h-6 w-6" />,
     link: "/dashboard/reports/admin",
   },
-  /*
-    {
-      section: "Mapa",
-      icon: <Map className="h-6 w-6" />,
-      link: "/dashboard/map",
-    },
-    {
-      section: "Usuarios y roles",
-      icon: <Users className="h-6 w-6" />,
-      link: "/dashboard/users",
-    },
-  */
+
+  {
+    section: "Tipos de Reclamos",
+    icon: <ListCollapse className="h-6 w-6" />,
+    link: "/dashboard/report-types",
+  },
+
+  {
+    section: "Usuarios y roles",
+    icon: <Users className="h-6 w-6" />,
+    link: "/dashboard/users",
+  },
 ];
 
 const LINKS = [
