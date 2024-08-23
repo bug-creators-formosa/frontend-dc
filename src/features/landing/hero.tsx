@@ -6,15 +6,13 @@ export default function Hero() {
       <div className="grid grid-cols-1 grid-rows-[300_px_1fr] lg:grid-cols-2 lg:grid-rows-1 mx-6 md:mx-[10rem] min-h-[90vh] pt-8 md:pt-0">
         <div className="flex flex-col justify-center items-center md:items-start">
           <hgroup className="flex flex-col text-center lg:text-start">
-            <h1 className="text-[70px] leading-[1] md:text-[80px] text-bold font-sans-accent mb-5">
+            <h1 className="text-[70px] leading-[1] md:text-[70px] text-bold font-sans-accent mb-5">
               Ayuda a construir una ciudad mejor
             </h1>
             <p className="text-xl font-sans font-thin lg:me-20">
-              Descripción de Hero. Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Dicta assumenda doloribus doloremque dolores
-              officia voluptas in eveniet neque aliquam labore eligendi,
-              delectus facere, at quia? Porro harum culpa eveniet possimus? Nam
-              omnis voluptates sunt nemo! Quo ipsam, distinctio consequuntur
+              Transforma tu comunidad con un clic. Reporta problemas para
+              mejorar la calidad de vida en tu barrio. Únete a Comunidad Activa
+              y haz tu parte para construir un futuro mejor.
             </p>
           </hgroup>
           <div className="flex gap-2 mt-4">
