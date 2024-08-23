@@ -1,4 +1,5 @@
 import { Button } from "@/components/shadcn/ui/button";
+import { Link } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -16,12 +17,14 @@ export default function Hero() {
             </p>
           </hgroup>
           <div className="flex gap-2 mt-4">
-            <Button
-              variant="default"
-              className="px-4 py-5 mt-4 rounded-md text-2xl"
-            >
-              Registra una denuncia
-            </Button>
+            <Link to="/auth/sign-in">
+              <Button
+                variant="default"
+                className="px-4 py-5 mt-4 rounded-md text-2xl"
+              >
+                Registra una denuncia
+              </Button>
+            </Link>
           </div>
         </div>
         <HeroImage />
