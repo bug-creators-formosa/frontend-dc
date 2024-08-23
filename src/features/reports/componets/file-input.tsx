@@ -35,7 +35,7 @@ export function FileInput(props: FileInputProps) {
 
   return (
     <>
-      {previewImage && <img src={previewImage} />}
+      {previewImage && <img src={previewImage} className="max-h-40" />}
       <FormItem>
         <FormLabel>{props.label}</FormLabel>
         <FormControl>
