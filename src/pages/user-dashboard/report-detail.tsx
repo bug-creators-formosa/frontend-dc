@@ -61,6 +61,11 @@ export default function ReportDetailPage() {
           <p>{report?.description}</p>
         </div>
 
+        <div>
+          <h2 className="font-sans-accent text-2xl mb-6">Dirección</h2>
+          <p>{report?.address}</p>
+        </div>
+
         {report?.image_url && (
           <div>
             <h2 className="font-sans-accent text-2xl mb-6">Imagen adjunta</h2>
@@ -70,10 +75,6 @@ export default function ReportDetailPage() {
             />
           </div>
         )}
-        <div>
-          <h2 className="font-sans-accent text-2xl mb-6">Dirección</h2>
-          <p>{report?.address}</p>
-        </div>
       </div>
     </main>
   );
