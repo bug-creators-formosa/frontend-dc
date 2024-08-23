@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/shadcn/ui/table";
-import { UserListSkeleton } from "@/features/admin-dashboard/components/user-list";
+import DeleteButton from "@/features/reports/componets/delete-button";
 import {
   REPORT_STATES,
   ReportState,
@@ -38,7 +38,7 @@ export default function ReportsPage() {
   });
 
   if (isLoading) {
-    return <UserListSkeleton />;
+    return <ReportPageSkeleton />;
   }
 
   if (error) {
@@ -84,9 +84,11 @@ export default function ReportsPage() {
                       <Skeleton className="w-8 h-8 animate-none" />
                     )}
                   </TableCell>
-                  <TableCell className="w-[100px]">{report.title}</TableCell>
-                  <TableCell className="text-ellipsis max-w-[450px]">
-                    {report.description}
+                  <TableCell className="w-[100px]">
+                    {report.title.slice(0, 20)}
+                  </TableCell>
+                  <TableCell className="text-ellipsis max-w-[450px] *:max-h-[30px] overflow-hidden">
+                    {report.description.slice(0, 100)}
                   </TableCell>
                   <TableCell>
                     <ReportStateBadge state={report.state} />
@@ -103,6 +105,7 @@ export default function ReportsPage() {
                         Editar
                       </Link>
                     </Button>
+                    <DeleteButton report_id={report.report_id} />
                   </TableCell>
                 </TableRow>
               );
@@ -114,10 +117,67 @@ export default function ReportsPage() {
   );
 }
 
+function ReportPageSkeleton() {
+  return (
+    <main className="px-7 py-6 overflow-y-scroll max-h-full">
+      <hgroup className="flex justify-between items-center">
+        <h1 className="text-4xl font-sans-accent mb-6">Mis denuncias</h1>
+        <Button className="flex gap-2">
+          <Link to="/dashboard/reports/add" className="flex gap-2">
+            <CirclePlus className="h-6 w-6" />
+            Denunciar un hecho
+          </Link>
+        </Button>
+      </hgroup>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead></TableHead>
+            <TableHead className="w-[100px]">Título</TableHead>
+            <TableHead>Descripción</TableHead>
+            <TableHead>Estado</TableHead>
+            <TableHead>Tipo</TableHead>
+            <TableHead>Modificado</TableHead>
+            <TableHead>Dirección</TableHead>
+            <TableHead className="text-right">Acciones</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {new Array(10).fill(0).map((_, i) => {
+            return (
+              <TableRow key={i}>
+                <TableCell className="font-medium flex items-center"></TableCell>
+                <TableCell>
+                  <Skeleton className="w-24 h-4" />
+                </TableCell>
+                <TableCell>
+                  <Skeleton className="w-24 h-4" />
+                </TableCell>
+                <TableCell className="flex gap-2">
+                  <Skeleton className="w-24 h-4" />
+                </TableCell>
+                <TableCell className="flex gap-2">
+                  <Skeleton className="w-24 h-4" />
+                </TableCell>
+                <TableCell className="flex gap-2">
+                  <Skeleton className="w-24 h-4" />
+                </TableCell>
+                <TableCell className="flex gap-2">
+                  <Skeleton className="w-24 h-4" />
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </main>
+  );
+}
+
 function ReportStateBadge({ state }: { state: ReportState }) {
   const classes: Record<ReportState, string> = {
     [REPORT_STATES.OPENED]: "bg-blue-500",
-    [REPORT_STATES.CLOSED]: "bg-red-300",
+    [REPORT_STATES.CLOSED]: "bg-red-400",
     [REPORT_STATES.IN_PROGRESS]: "bg-blue-500",
     [REPORT_STATES.SOLVED]: "bg-green-400",
   };
@@ -130,14 +190,14 @@ function ReportStateBadge({ state }: { state: ReportState }) {
   };
 
   const icons: Record<ReportState, ReactNode> = {
-    [REPORT_STATES.OPENED]: <CircleDot className="h-6 w-6" />,
-    [REPORT_STATES.CLOSED]: <CircleX className="h-6 w-6" />,
-    [REPORT_STATES.IN_PROGRESS]: <CirclePlay className="h-6 w-6" />,
-    [REPORT_STATES.SOLVED]: <CircleCheckBig className="h-6 w-6" />,
+    [REPORT_STATES.OPENED]: <CircleDot className="h-4 w-4" />,
+    [REPORT_STATES.CLOSED]: <CircleX className="h-4 w-4" />,
+    [REPORT_STATES.IN_PROGRESS]: <CirclePlay className="h-4 w-4" />,
+    [REPORT_STATES.SOLVED]: <CircleCheckBig className="h-4 w-4" />,
   };
 
   return (
-    <Badge className={cn(classes[state], "flex gap-1 text-sm max-w-min")}>
+    <Badge className={cn(classes[state], "flex gap-1 text-[14px] max-w-min")}>
       {icons[state]}
       {text[state]}
     </Badge>
