@@ -6,7 +6,7 @@ export type Report = {
     title: string,
     description: string,
     address: string,
-    type: { report_type_id: string, title: string, description: string };
+    type: { report_type_id: string, name: string, description: string };
     image_url: string
     state: ReportState,
     user: User,

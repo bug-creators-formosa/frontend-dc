@@ -1,7 +1,7 @@
 import useAuth from "@/features/auth/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { DashboardIcon } from "@radix-ui/react-icons";
-import { Map, NotepadText, Users } from "lucide-react";
+import { CircleDot, NotepadText } from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import SectionLink from "./section-link";
@@ -14,22 +14,29 @@ const ADMIN_LINKS = [
     link: "/dashboard/graphics",
   },
   {
-    section: "Mapa",
-    icon: <Map className="h-6 w-6" />,
-    link: "/dashboard/map",
+    section: "Estado de reclamos",
+    icon: <CircleDot className="h-6 w-6" />,
+    link: "/dashboard/reports/admin",
   },
-  {
-    section: "Usuarios y roles",
-    icon: <Users className="h-6 w-6" />,
-    link: "/dashboard/users",
-  },
+  /*
+    {
+      section: "Mapa",
+      icon: <Map className="h-6 w-6" />,
+      link: "/dashboard/map",
+    },
+    {
+      section: "Usuarios y roles",
+      icon: <Users className="h-6 w-6" />,
+      link: "/dashboard/users",
+    },
+  */
 ];
 
 const LINKS = [
   {
-    section: "Mis denuncias",
+    section: "Mis reclamos",
     icon: <NotepadText className="h-6 w-6" />,
-    link: "/dashboard/reports",
+    link: "/dashboard/reports/user",
   },
 ];
 

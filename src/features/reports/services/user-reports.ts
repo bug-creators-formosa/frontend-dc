@@ -39,6 +39,27 @@ export async function getReportsByUser() {
     }
 }
 
+export async function getReports() {
+    try {
+        const response = await api.get<GetReportsResponse[]>(
+            `/reports`
+        );
+        return response.data.map(report => {
+            return {
+                ...report,
+                // TODO: Este es una solución temporal al 
+                // hecho de que hay reportes sin imagen
+                // pero con una URL no nula
+                image_url: report.image_url?.includes("undefined") ? null : report.image_url,
+                state_change_at: new Date(report.state_change_at)
+            }
+        });
+    } catch (err) {
+        console.error("getReports error: ", err);
+        throw err;
+    }
+}
+
 type GetReportParams = { report_id: string };
 
 export async function getOneReport(params: GetReportParams) {
@@ -83,7 +104,20 @@ export async function createReport(params: CreateReportParams) {
         );
         return response.data;
     } catch (err) {
-        console.error("getReports error: ", err);
+        console.error("createReport error: ", err);
         throw err;
     }
+}
+
+export async function deleteReport(params: { report_id: string }) {
+    try {
+        const response = await api.delete(
+            `/reports/${params.report_id}`,
+        );
+        return response.data;
+    } catch (err) {
+        console.error("deleteReports error: ", err);
+        throw err;
+    }
+
 }

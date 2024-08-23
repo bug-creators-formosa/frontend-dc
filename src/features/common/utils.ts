@@ -11,7 +11,5 @@ export const getInitials = (names: string) => {
 
 export const ROLE_TO_DISPLAY: Record<User["user_roles"][number]["name"], string> = {
   admin: "Administrador",
-  authority: "Autoridad",
   user: "Usuario",
-  verified_user: "Usuario verificado",
 };

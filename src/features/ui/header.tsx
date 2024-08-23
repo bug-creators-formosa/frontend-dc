@@ -82,8 +82,14 @@ function LoginLinks() {
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>Opciones</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => router("/dashboard")}>
-              {isAdmin ? "Panel" : "Denuncias"}
+            <DropdownMenuItem
+              onClick={() =>
+                isAdmin
+                  ? router("/dashboard/reports/admin")
+                  : router("/dashboard/reports/user")
+              }
+            >
+              {isAdmin ? "Panel" : "Reclamo"}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut}>Cerrar Sesión</DropdownMenuItem>
