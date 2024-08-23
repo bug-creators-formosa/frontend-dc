@@ -47,7 +47,7 @@ export default function Sidebar() {
       <aside
         className={cn(
           panelClassnames,
-          "absolute md:block md:sticky top-0 left-0"
+          "absolute md:block md:sticky z-[99] top-0 left-0"
         )}
       >
         <div className="flex items-center justify-between w-full py-3">
