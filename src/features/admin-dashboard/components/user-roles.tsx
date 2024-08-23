@@ -40,7 +40,7 @@ export default function UserRoles({ user }: { user: User }) {
   );
 }
 
-const roles = ["admin", "authority"] as Partial<Roles>[];
+const roles = ["admin"] as Partial<Roles>[];
 const RoleFormSchema = z.object({
   roles: z.string().array(),
 });
