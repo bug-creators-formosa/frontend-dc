@@ -16,6 +16,8 @@ import { Label, Pie, PieChart } from "recharts";
 type CardPieChartProps = {
   data: { category: string; value: number; fill: string }[];
   pieLabel: string;
+  title?: string;
+  description?: string;
 };
 
 export default function CardPieChart(props: CardPieChartProps) {
@@ -29,8 +31,8 @@ export default function CardPieChart(props: CardPieChartProps) {
   return (
     <Card className="m-4">
       <CardHeader>
-        <CardTitle>Usuarios</CardTitle>
-        <CardDescription>Creados por Mes</CardDescription>
+        <CardTitle>{props.title ?? props.pieLabel}</CardTitle>
+        <CardDescription>{props.description}</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chatPieConfig} className="min-h-[200px] w-full">
