@@ -83,7 +83,20 @@ export async function createReport(params: CreateReportParams) {
         );
         return response.data;
     } catch (err) {
-        console.error("getReports error: ", err);
+        console.error("createReport error: ", err);
         throw err;
     }
+}
+
+export async function deleteReport(params: { report_id: string }) {
+    try {
+        const response = await api.delete(
+            `/reports/${params.report_id}`,
+        );
+        return response.data;
+    } catch (err) {
+        console.error("deleteReports error: ", err);
+        throw err;
+    }
+
 }
