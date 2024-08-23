@@ -33,7 +33,7 @@ export function ReportStateBadge({
   const classes: Record<ReportState, string> = {
     [REPORT_STATES.OPENED]: "bg-blue-500",
     [REPORT_STATES.CLOSED]: "bg-red-400",
-    [REPORT_STATES.IN_PROGRESS]: "bg-blue-500",
+    [REPORT_STATES.IN_PROGRESS]: "bg-orange-500",
     [REPORT_STATES.SOLVED]: "bg-green-400",
   };
 
@@ -76,7 +76,7 @@ export function ReportStateBadge({
           }}
           disabled={isPending}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className={cn("w-[180px] text-white", classes[state])}>
             <SelectValue
               placeholder={
                 <div className="flex gap-2 items-center">
