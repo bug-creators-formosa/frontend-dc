@@ -21,6 +21,7 @@ import MapPage from "./pages/admin-dashboard/map";
 import FormLayout from "./pages/auth/form-layout";
 import ConstructionPage from "./pages/construction";
 import NotFoundPage from "./pages/not_found";
+import ReportsPage from "./pages/user-dashboard/reports-page";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,7 @@ const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       { path: "/dashboard/graphics", element: <DashboardIndex />, index: true },
+      { path: "/dashboard/reports", element: <ReportsPage /> },
       { path: "/dashboard/users", element: <UserListPage /> },
       { path: "/dashboard/users/:userId", element: <UserDetailPage /> },
       { path: "/dashboard/map", element: <MapPage /> },

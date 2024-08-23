@@ -81,15 +81,11 @@ function LoginLinks() {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>Opciones</DropdownMenuLabel>
-            {isAdmin && (
-              <>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={() => router("/dashboard")}>
-                  Panel
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-              </>
-            )}
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => router("/dashboard")}>
+              {isAdmin ? "Panel" : "Denuncias"}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem onClick={signOut}>Cerrar Sesión</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
