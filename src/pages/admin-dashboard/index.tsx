@@ -114,50 +114,59 @@ export default function DashboardIndex() {
   }));
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 ">
-      {!isLoadingUsersByMonth &&
-        USERS_BY_MONTH_FORMATTED &&
-        USERS_BY_MONTH_FORMATTED?.length > 0 && (
-          <CardAreaChart
-            data={USERS_BY_MONTH_FORMATTED}
-            areaLabel={"Ciudadanos registrados"}
-            description="Desde el 1ro de Enero hasta hoy."
-          />
-        )}
-      {!isLoadingReportsByMonth &&
-        REPORTS_BY_MONTH_FORMATTED &&
-        REPORTS_BY_MONTH_FORMATTED?.length > 0 && (
-          <CardAreaChart
-            data={REPORTS_BY_MONTH_FORMATTED}
-            areaLabel="Reclamos"
-            description="Desde el 1ro de Enero hasta hoy."
-          />
-        )}
-      {!isLoadingReportsByStateAndMonth &&
-        REPORTS_BY_STATE_AND_MONTH_FORMATTED && (
-          <SelectorCardBarChart
-            data={REPORTS_BY_STATE_AND_MONTH_FORMATTED}
-            title="Reclamos por estado y mes"
-            description="Estado de los Reclamos en"
-          />
-        )}
+    <main className="px-7 py-6 overflow-y-scroll max-h-full">
+      <hgroup>
+        <h1 className="text-4xl font-sans-accent mb-6">Panel gráfico</h1>
+      </hgroup>
 
-      {!isLoadingReportTypes &&
-        REPORT_FORMATTED &&
-        REPORT_FORMATTED?.length > 0 && (
-          <CardDonutChart
-            data={REPORT_FORMATTED}
-            donutLabel="Reclamos"
-            description="Top 5 de reclamos de ciudadanos."
+      <div className="grid grid-cols-1 md:grid-cols-2 ">
+        {!isLoadingReportsByMonth &&
+          REPORTS_BY_MONTH_FORMATTED &&
+          REPORTS_BY_MONTH_FORMATTED?.length > 0 && (
+            <div className="col-span-2">
+              <CardAreaChart
+                data={REPORTS_BY_MONTH_FORMATTED}
+                areaLabel="Reclamos"
+                description="Desde el 1ro de Enero hasta hoy."
+              />
+            </div>
+          )}
+        {!isLoadingUsersByMonth &&
+          USERS_BY_MONTH_FORMATTED &&
+          USERS_BY_MONTH_FORMATTED?.length > 0 && (
+            <CardAreaChart
+              data={USERS_BY_MONTH_FORMATTED}
+              areaLabel={"Ciudadanos registrados"}
+              description="Desde el 1ro de Enero hasta hoy."
+            />
+          )}
+
+        {!isLoadingReportsByStateAndMonth &&
+          REPORTS_BY_STATE_AND_MONTH_FORMATTED && (
+            <SelectorCardBarChart
+              data={REPORTS_BY_STATE_AND_MONTH_FORMATTED}
+              title="Reclamos por estado y mes"
+              description="Estado de los Reclamos en"
+            />
+          )}
+
+        {!isLoadingReportTypes &&
+          REPORT_FORMATTED &&
+          REPORT_FORMATTED?.length > 0 && (
+            <CardDonutChart
+              data={REPORT_FORMATTED}
+              donutLabel="Reclamos"
+              description="Top 5 de reclamos de ciudadanos."
+            />
+          )}
+        {!isLoadingReportTypeByState && REPORT_TYPE_BY_STATE_FORMATTED && (
+          <SelectorCardBarChart
+            data={REPORT_TYPE_BY_STATE_FORMATTED}
+            title="Tipos de Reclamos por estado"
+            description="Estados de los Reclamos del tipo"
           />
         )}
-      {!isLoadingReportTypeByState && REPORT_TYPE_BY_STATE_FORMATTED && (
-        <SelectorCardBarChart
-          data={REPORT_TYPE_BY_STATE_FORMATTED}
-          title="Tipos de Reclamos por estado"
-          description="Estados de los Reclamos del tipo"
-        />
-      )}
-    </div>
+      </div>
+    </main>
   );
 }

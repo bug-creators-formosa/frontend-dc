@@ -36,7 +36,7 @@ export default function ReportTable(props: ReportPageProps) {
           <Button className="flex gap-2">
             <Link to="/dashboard/reports/add" className="flex gap-2">
               <CirclePlus className="h-6 w-6" />
-              Denunciar un hecho
+              Iniciar reclamo
             </Link>
           </Button>
         )}
@@ -124,7 +124,7 @@ function ReportPageSkeleton() {
         <Button className="flex gap-2">
           <Link to="/dashboard/reports/add" className="flex gap-2">
             <CirclePlus className="h-6 w-6" />
-            Denunciar un hecho
+            Iniciar reclamo
           </Link>
         </Button>
       </hgroup>

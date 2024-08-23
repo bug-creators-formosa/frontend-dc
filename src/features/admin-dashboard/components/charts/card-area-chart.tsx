@@ -34,7 +34,10 @@ export default function CardAreaChart(props: CardAreaChartProps) {
         <CardDescription>{props.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+        <ChartContainer
+          config={chartConfig}
+          className="min-h-[200px] max-h-[300px] w-full"
+        >
           <AreaChart
             accessibilityLayer
             data={props.data}
@@ -47,14 +50,14 @@ export default function CardAreaChart(props: CardAreaChartProps) {
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey={"category"}
-              tickLine={false}
-              axisLine={false}
+              tickLine={true}
+              axisLine={true}
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
+              cursor={true}
+              content={<ChartTooltipContent indicator="dashed" />}
             />
             <Area
               dataKey={"value"}
