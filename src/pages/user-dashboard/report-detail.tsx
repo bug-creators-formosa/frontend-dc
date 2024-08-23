@@ -1,5 +1,6 @@
 import { Badge } from "@/components/shadcn/ui/badge";
 import { Separator } from "@/components/shadcn/ui/separator";
+import useAuth from "@/features/auth/hooks/use-auth";
 import { ReportStateBadge } from "@/features/reports/componets/report-state-badge";
 import { getOneReport } from "@/features/reports/services/user-reports";
 import FullScreenSpinner from "@/features/ui/fullscreen-spinner";
@@ -10,6 +11,7 @@ import { Link, useParams } from "react-router-dom";
 
 export default function ReportDetailPage() {
   const { report_id } = useParams();
+  const { isAdmin } = useAuth();
   const {
     data: report,
     isLoading,
@@ -31,7 +33,7 @@ export default function ReportDetailPage() {
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
       <hgroup className="flex gap-2 items-center">
         <div className="flex items-center h-full">
-          <Link to="/dashboard/reports">
+          <Link to={`/dashboard/reports/${isAdmin ? "admin" : "user"}`}>
             <ArrowLeft />
           </Link>
         </div>

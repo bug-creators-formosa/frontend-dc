@@ -1,3 +1,4 @@
+import useAuth from "@/features/auth/hooks/use-auth";
 import { ReportForm } from "@/features/reports/componets/report-form";
 import { getOneReport } from "@/features/reports/services/user-reports";
 import FullScreenSpinner from "@/features/ui/fullscreen-spinner";
@@ -7,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 
 export default function EditReport() {
   const { report_id } = useParams();
+  const { isAdmin } = useAuth();
   const {
     data: report,
     isLoading,
@@ -31,7 +33,7 @@ export default function EditReport() {
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
       <hgroup className="flex justify-start items-center">
         <div className="flex items-center h-full">
-          <Link to="/dashboard/reports">
+          <Link to={`/dashboard/reports/${isAdmin ? "admin" : "user"}`}>
             <ArrowLeft />
           </Link>
         </div>
