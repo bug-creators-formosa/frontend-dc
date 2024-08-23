@@ -1,13 +1,15 @@
+import useAuth from "@/features/auth/hooks/use-auth";
 import { ReportForm } from "@/features/reports/componets/report-form";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function AddReport() {
+  const { isAdmin } = useAuth();
   return (
     <main className="px-7 py-6 overflow-y-scroll max-h-full">
       <hgroup className="flex justify-start items-center">
         <div className="flex items-center h-full">
-          <Link to="/dashboard/reports">
+          <Link to={`/dashboard/reports/${isAdmin ? "admin" : "user"}`}>
             <ArrowLeft />
           </Link>
         </div>
