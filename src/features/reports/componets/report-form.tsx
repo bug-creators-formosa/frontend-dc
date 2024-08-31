@@ -20,7 +20,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/shadcn/ui/select";
-import { Textarea } from "@/components/shadcn/ui/textarea";
+import { TextArea } from "@/components/shadcn/ui/textarea";
 import useAuth from "@/features/auth/hooks/use-auth";
 import { FileInput } from "@/features/reports/componets/file-input";
 import { getReportTypes } from "@/features/reports/services/report-types";
@@ -125,7 +125,7 @@ export function ReportForm(props: ReportFormProps) {
               <FormItem>
                 <FormLabel>Descripción</FormLabel>
                 <FormControl>
-                  <Textarea
+                  <TextArea
                     placeholder="Una descripción del problema"
                     {...field}
                   />

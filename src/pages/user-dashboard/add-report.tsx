@@ -14,7 +14,7 @@ export default function AddReport() {
           </Link>
         </div>
         <div className="flex items-center">
-          <h1 className="text-4xl font-sans-accent">Edita un reporte</h1>
+          <h1 className="text-4xl font-sans-accent">Nuevo Reclamo</h1>
         </div>
       </hgroup>
       <div className="grid p-2 gap-3">
